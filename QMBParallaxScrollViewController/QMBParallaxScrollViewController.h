@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, QMBParallaxGesture) {
 @optional
 
 /**
- * Callback when the user tapped the top-view 
+ * Callback when the user tapped the top-view
  * sender is usually the UITapGestureRecognizer instance
  */
 - (void) parallaxScrollViewController:(QMBParallaxScrollViewController *) controller didChangeGesture:(QMBParallaxGesture)newGesture oldGesture:(QMBParallaxGesture)oldGesture;
@@ -103,5 +103,12 @@ typedef NS_ENUM(NSUInteger, QMBParallaxGesture) {
  * Call will be responsed by QMBParallaxScrollViewControllerDelegate instance
  */
 - (void) enableTapGestureTopView:(BOOL) enable;
+
+/**
+ * Made below methods public to enable dynamic content height update
+ */
+- (void) showFullTopView:(BOOL)show;
+- (void) updateForegroundFrame;
+- (void) updateContentOffset;
 
 @end
