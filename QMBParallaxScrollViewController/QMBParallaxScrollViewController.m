@@ -182,8 +182,6 @@
 
 - (void)updateForegroundFrame {
     
-    
-    
     if ([_foregroundView isKindOfClass:[UIScrollView class]]){
         _foregroundView.frame = CGRectMake(0.0f, _topHeight, self.view.frame.size.width, MAX(((UIScrollView *)_foregroundView).contentSize.height,_foregroundView.frame.size.height));
         CGSize size = CGSizeMake(self.view.frame.size.width,MAX(((UIScrollView *)_foregroundView).contentSize.height,_foregroundView.frame.size.height) + _topHeight);
@@ -216,8 +214,15 @@
     }
     _lastOffsetY = self.foregroundScrollView.contentOffset.y;
     
-    self.backgroundView.frame =
-    CGRectMake(0.0f,0.0f,self.view.frame.size.width,_topHeight+(-1)*self.foregroundScrollView.contentOffset.y);
+    float bgHeight = 0;
+    if (_topHeight != self.view.frame.size.height) {
+        bgHeight = _topHeight + (-1) * self.foregroundScrollView.contentOffset.y;
+    }else{
+        bgHeight = self.view.frame.size.height;
+    }
+    self.backgroundView.frame = CGRectMake(0.0f,0.0f,
+                                           self.view.frame.size.width,
+                                           bgHeight);
     
     if (_isAnimating){
         return;
@@ -245,7 +250,6 @@
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
-                         
                          [self changeTopHeight:show ?  _maxHeight : _startTopHeight];
                      }
                      completion:^(BOOL finished){
